@@ -1,4 +1,5 @@
 import path from "path";
+import { fileURLToPath } from "url";
 import postcssImport from "postcss-import";
 import postcssUrl from "postcss-url";
 import postcssNesting from "postcss-nesting";
@@ -7,13 +8,15 @@ import postcssPresetEnv from "postcss-preset-env";
 import cssnano from "cssnano";
 import { purgeCSSPlugin } from "@fullhuman/postcss-purgecss";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 export default {
   plugins: [
     postcssImport({
       path: [
         // Check for imports in <theme-dir>/css/assets
         // TODO use Hugo's built-in inlineImports?
-        path.posix.join(import.meta.dirname, "assets", "css"),
+        path.posix.join(__dirname, "assets", "css"),
       ],
     }),
     postcssUrl([
